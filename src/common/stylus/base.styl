@@ -1,0 +1,27 @@
+body, html
+  line-height: 1
+  font-weight: 200
+  font-family: 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', Arial, Helvetica, sans-serif
+
+/* 清除浮动 */
+.clearfix
+  display: inline-block
+  &:after
+    display: block
+    content: ''
+    height: 0
+    line-height: 0
+    clear: both
+    visibility: hidden
+
+@media (min-device-pixel-ratio:1.5), (-webkit-min-device-pixel-ratio:1.5)
+  .border-1px
+    &::after
+      -webkit-transform: scaleY(0.7)
+      transform: scaleY(0.7)
+
+@media (min-device-pixel-ratio:2), (-webkit-min-device-pixel-ratio:1.5)
+  .border-1px
+    &::after
+      -webkit-transform: scaleY(0.7)
+      transform: scaleY(0.5)

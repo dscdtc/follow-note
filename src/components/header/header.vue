@@ -1,8 +1,8 @@
 <template>
   <div class="header">
-    <div class="title">
+    <h1 class="title">
       <i class="logo icon-zhuishushenqi" /><span>书 神 器</span>
-    </div>
+    </h1>
     <div class="button-wrapper">
       <i class="button icon-search" />
       <i class="button icon-more" />
@@ -27,7 +27,7 @@ export default {
     justify-content space-between
     padding 12px
     line-height 32px
-    background red
+    background #b93221
     color white
     .title
       font-size 18px

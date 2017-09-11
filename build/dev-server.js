@@ -21,8 +21,22 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 var proxyTable = config.dev.proxyTable
 
 var app = express()
-var compiler = webpack(webpackConfig)
 
+// Mock Data
+const appData = require('../data.json')
+const novels = appData.novels
+const flag = appData.flag
+const apiRoutes = express.Router()
+apiRoutes.get('/novels', function(req, res){
+  res.json({
+    errno: 0,
+    data: novels,
+    flag: flag
+  });
+})
+app.use('/api', apiRoutes)
+
+var compiler = webpack(webpackConfig)
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
   quiet: true
