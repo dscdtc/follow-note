@@ -23,9 +23,39 @@ var proxyTable = config.dev.proxyTable
 var app = express()
 
 // Mock Data
-const appData = require('../data.json')
-const novels = appData.novels
-const flag = appData.flag
+// const appData = require('../data.json')
+// const novels = appData.novels
+// const flag = appData.flag
+// const http = require('http')
+
+// http.get('http://api.zhuishushenqi.com/user/bookshelf?token=mFP43SIHeHWEAJecoMa5Y8aL', function (res) {
+//     var appData = ''
+//     res.setEncoding('utf8')
+//     res.on('data', function (chunk) {
+//       appData += chunk
+//     })
+//     req.on('end',function(){
+//       var data = JSON.parse(appData)
+//       var novels = data.bookshelf
+//       console.info(novles)
+//     })
+//   })
+
+const axios = require('axios')
+let novels = [],
+  // feeding = [],
+  flag = false
+axios.get('http://api.zhuishushenqi.com/user/bookshelf?token=mFP43SIHeHWEAJecoMa5Y8aL')
+  .then(function (response) {
+    const appData = response.data
+    novels = appData.bookshelf
+    // feeding = appData.feedingBooks
+    flag = appData.ok
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
 const apiRoutes = express.Router()
 apiRoutes.get('/novels', function(req, res){
   res.json({

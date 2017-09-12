@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app">
     <v-header></v-header>
     <div class="tab">
         <router-link to="/novel" class="tab-item">追书</router-link>
@@ -29,6 +29,7 @@
       _getNovels () {
         getInfo('novels')
         .then((res) => {
+          console.log(res.data)
           if (res.errno === ERR_OK) {
             this.novels = res.data || []
           }
@@ -51,7 +52,6 @@
     background #b93221
     color white
     line-height 40px
-    // border-bottom 1px solid rgba(7, 17, 27, 0.1)
     border-1px(rgba(7, 17, 27, 0.1))
     .tab-item
       flex 1
