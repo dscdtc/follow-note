@@ -6,36 +6,14 @@
         <router-link to="/community" class="tab-item">社区</router-link>
         <router-link to="/discover" class="tab-item">发现</router-link>
     </div>
-    <router-view :novels="novels"></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import header from 'comp/header/header.vue'
-  import {getInfo} from 'api/get'
-
-  const ERR_OK = 0
+  import header from 'comp/header/header'
 
   export default {
-    data () {
-      return {
-        novels: []
-      }
-    },
-    created () {
-      this._getNovels()
-    },
-    methods: {
-      _getNovels () {
-        getInfo('novels')
-        .then((res) => {
-          console.log(res.data)
-          if (res.errno === ERR_OK) {
-            this.novels = res.data || []
-          }
-        })
-      }
-    },
     components: {
       'v-header': header
     }
