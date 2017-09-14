@@ -7,7 +7,7 @@ import 'common/stylus/index.styl'
 
 Vue.config.productionTip = false
 
-Vue.use(lazyload, {loading: require('common/image/111.jpg')})
+Vue.use(lazyload, {loading: require('common/image/loading.gif')})
 
 /* eslint-disable no-new */
 new Vue({

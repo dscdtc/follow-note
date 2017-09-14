@@ -73,6 +73,13 @@
       refreshDelay: {
         type: Number,
         default: 20
+      },
+      /**
+       * 下拉刷新@version1.3.0
+       */
+      pullDownRefresh: {
+        type: null,
+        default: false
       }
     },
     mounted () {
@@ -90,7 +97,8 @@
         this.scroll = new BScroll(this.$refs.wrapper, {
           probeType: this.probeType,
           click: this.click,
-          scrollX: this.scrollX
+          scrollX: this.scrollX,
+          pullDownRefresh: this.pullDownRefresh
         })
 
         // 是否派发滚动事件
@@ -112,7 +120,7 @@
 
         // 是否派发顶部下拉事件，用于下拉刷新
         if (this.pulldown) {
-          this.scroll.on('touchend', (pos) => {
+          this.scroll.on('touchEnd', (pos) => {
             // 下拉动作
             if (pos.y > 50) {
               this.$emit('pulldown')
@@ -124,6 +132,12 @@
         if (this.beforeScroll) {
           this.scroll.on('beforeScrollStart', () => {
             this.$emit('beforeScroll')
+          })
+        }
+
+        if (this.pullDownRefresh) {
+          this.scroll.on('pullingDown', () => {
+            this.$emit('pullingDown')
           })
         }
       },
@@ -146,6 +160,9 @@
       scrollToElement () {
         // 代理better-scroll的scrollToElement方法
         this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments)
+      },
+      finishPullDown () {
+        this.scroll && this.scroll.finishPullDown()
       }
     },
     watch: {

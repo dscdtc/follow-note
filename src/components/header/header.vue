@@ -1,7 +1,8 @@
 <template>
   <div class="header">
     <h1 class="title">
-      <i class="logo icon-zhuishushenqi" /><span>书 神 器</span>
+      <!-- <i class="logo icon-zhuishushenqi" /><span>书 神 器</span> -->
+      <img class="logo" src="./asstes/logo.png">
     </h1>
     <div class="button-wrapper">
       <i class="button icon-search" />
@@ -34,12 +35,12 @@ export default {
       font-weight 700
       .logo
         display inline-block
-        font-size 32px
-        vertical-align top
+        height 22px
+        vertical-align middle
     .button-wrapper
       line-height 32px
       font-weight 700
       .button
         padding 8px
-        font-size 18px
+        font-size 22px
 </style>

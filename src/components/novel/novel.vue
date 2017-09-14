@@ -2,18 +2,19 @@
   <div class="novel">
     <scroll
       class="novel-list"
+      ref="scroll"
       :probeType="3"
       :data="novels"
       :listenScroll="true"
-      :pulldown="true"
-      @pulldown="_refresh"
+      :pullDownRefresh="pullDownRefresh"
+      @pullingDown="_refresh"
       @scroll="scroll">
       <ul>
         <li class="loading">
-          <i v-show="!refresh" v-if="scrollY > 0 && scrollY < 50" class="icon-arrow-down" />
-          <i v-show="!refresh" v-if="scrollY >= 50" class="icon-arrow-up" />
-          <i v-show="refresh" v-if="!isLoaded" class="icon-loading" />
-          <i v-show="refresh" v-if="isLoaded" class="icon-ok" />
+          <i v-show="!refresh" v-if="scrollY > 0 && scrollY < 50" class="icon icon-arrow-down" />
+          <i v-show="!refresh" v-if="scrollY >= 50" class="icon icon-arrow-up" />
+          <i v-show="refresh" v-if="!isLoaded" class="icon icon-loading" />
+          <i v-show="refresh" v-if="isLoaded" class="icon icon-ok" />
         </li>
         <li v-for="(novel, index) in novels" :key="index" class="novel-item">
           <div class="img">
@@ -21,7 +22,7 @@
           </div>
           <div class="info">
             <h2 class="title">{{novel.title}}</h2>
-            <span class="update">{{computeTime(novel.updated)}}：{{novel.lastChapter}}</span>
+            <span class="update">{{computeTime(novel.updated)}}:{{novel.lastChapter}}</span>
           </div>
         </li>
       </ul>
@@ -42,7 +43,11 @@ export default {
       proxyUrl: 'http://statics.zhuishushenqi.com',
       scrollY: 0,
       refresh: false,
-      isLoaded: false
+      isLoaded: true,
+      pullDownRefresh: {
+        threshold: 50,
+        stop: 30
+      }
     }
   },
   created () {
@@ -52,7 +57,7 @@ export default {
     _getNovels () {
       getInfo('novels')
       .then((res) => {
-        // console.log(res.data)
+        console.log(res.data)
         if (res.errno === ERR_OK) {
           this.novels = res.data || []
         }
@@ -66,39 +71,35 @@ export default {
       let nowDate = new Date()
       let days = parseInt(Math.floor((nowDate - oldDate) / (1000 * 3600 * 24)))
       if (days) {
-        return `${days}天前更新`
+        return `${days}天前`
       }
       let hours = parseInt(Math.floor((nowDate - oldDate) / (1000 * 3600)))
       if (hours) {
-        return `${hours}小时前更新`
+        return `${hours}小时前`
       }
       let minutes = parseInt(Math.floor((nowDate - oldDate) / (1000 * 60)))
       if (minutes) {
-        return `${minutes}分钟前更新`
+        return `${minutes}分钟前`
       }
     },
     scroll (pos) {
       this.scrollY = Math.round(pos.y)
-      if (!this.isLoaded && this.scrollY > 50) {
-        this._refresh()
-      }
     },
     _refresh () {
-      console.info('refreshing...')
       this.refresh = true
       if (!this.isLoaded) {
         this.refresh = false
         return
       }
-      getInfo('novels')
-      .then((res) => {
-        console.log(res.data)
-        if (res.errno === ERR_OK) {
-          this.novels = res.data || []
-          this.isLoaded = true
-        }
-      })
       this.isLoaded = false
+      this._getNovels()
+      setTimeout(() => {
+        this.isLoaded = true
+      }, 1500)
+      setTimeout(() => {
+        this.refresh = false
+      }, 2500)
+      this.$refs.scroll.finishPullDown()
     }
   },
   components: {
@@ -112,9 +113,8 @@ export default {
   @import '../../common/stylus/mixin'
   .novel
     position absolute
-    top 87px
+    top 96px
     bottom 0
-    margin 10px
     width 100%
     font-size 0
     .novel-list
@@ -123,22 +123,25 @@ export default {
       .loading
         width 100%
         text-align center
-        font-weight bold
-        color #b93221
+        .icon
+          font-size 18px
+          font-weight bold
+          color #b93221
       .novel-item
         display flex
         .img
-          padding 10px
+          padding 16px
           border-radius 5px
         .info
-          padding 10px 0
+          flex-direction column
+          padding 16px 0
           height 55px
           width 100%
           border-1px(rgba(7,17,27,.1))
           .title
             line-height 35px
             font-size 16px
-            font-weight bold
+            font-weight 250
             color #212121
           .update
             font-size 12px

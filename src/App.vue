@@ -23,8 +23,12 @@
 
 <style lang="stylus" scoped>
   @import "./common/stylus/mixin.styl"
-  .tab
+  .app
+    height 100%
+    width 100%
+  &.tab
     display flex
+    // padding 0 32px
     width 100%
     height 40px
     background #b93221
