@@ -13,7 +13,7 @@
     <transition name="scale">
       <ul class="user" v-if="showUser">
         <li>
-          <img class="avatar" v-lazy="'http://statics.zhuishushenqi.com'+user.avatar" />
+          <img class="avatar" v-lazy="proxyUrl+user.avatar" />
           <span class="username">{{user.nickname}}</span>
         </li>
         <li>
@@ -50,16 +50,19 @@
 </template>
 
 <script>
+import {getInfo} from 'api/get'
+
 export default {
   name: 'header',
   data () {
     return {
-      user: {
-        nickname: '成爺',
-        avatar: '/avatar/bc/f8/bcf8dadc1b3399c25dc753a8a76a53ce'
-      },
-      showUser: false
+      user: {},
+      showUser: false,
+      proxyUrl: 'http://statics.zhuishushenqi.com'
     }
+  },
+  created () {
+    this._getUser
   }
 }
 </script>

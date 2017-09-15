@@ -4,7 +4,7 @@
       class="novel-list"
       ref="scroll"
       :probeType="3"
-      :data="novels"
+      :data="bookshelf"
       :listenScroll="true"
       :pullDownRefresh="pullDownRefresh"
       @pullingDown="_refresh"
@@ -18,7 +18,7 @@
             <i v-show="refresh" v-if="isLoaded" class="icon icon-ok" />
           </div>
         </transition>
-        <li v-for="(novel, index) in novels" :key="index" class="novel-item">
+        <li v-for="(novel, index) in bookshelf" :key="index" class="novel-item">
           <div class="img">
             <img width="45" height="55" v-lazy="proxyUrl+novel.cover" />
           </div>
@@ -36,12 +36,10 @@
 import scroll from 'comp/scroll/scroll'
 import {getInfo} from 'api/get'
 
-const ERR_OK = 0
-
 export default {
   data () {
     return {
-      novels: [],
+      bookshelf: [],
       proxyUrl: 'http://statics.zhuishushenqi.com',
       scrollY: 0,
       refresh: false,
@@ -53,14 +51,14 @@ export default {
     }
   },
   created () {
-    this._getNovels()
+    this._getBookshelf()
   },
   methods: {
-    _getNovels () {
-      getInfo('novels')
+    _getBookshelf () {
+      getInfo('bookshelf')
       .then((res) => {
-        if (res.errno === ERR_OK) {
-          this.novels = res.data || []
+        if (res.ok === true) {
+          this.bookshelf = res.bookshelf || []
         }
       })
     },
@@ -93,7 +91,7 @@ export default {
         return
       }
       this.isLoaded = false
-      this._getNovels()
+      this._getBookshelf()
       setTimeout(() => {
         this.isLoaded = true
       }, 1500)
@@ -121,6 +119,11 @@ export default {
     .novel-list
       height 100%
       overflow hidden
+      .loading-enter-active, .loading-leave-active
+        transition all 5s ease
+      .loading-enter, .loading-leave-to
+        transform scaleY(10px)
+        opacity 0
       .loading
         width 100%
         text-align center
@@ -128,11 +131,6 @@ export default {
           font-size 18px
           font-weight bold
           color #b93221
-      .loading-enter-active, .loading-leave-active
-        transition all .5s ease
-      .loading-enter, .loading-leave-to
-        // transform scaleY(30px)
-        opacity 0
       .novel-item
         display flex
         .img

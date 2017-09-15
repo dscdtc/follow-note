@@ -28,41 +28,22 @@ var app = express()
 // const flag = appData.flag
 // const http = require('http')
 
-// http.get('http://api.zhuishushenqi.com/user/bookshelf?token=mFP43SIHeHWEAJecoMa5Y8aL', function (res) {
-//     var appData = ''
-//     res.setEncoding('utf8')
-//     res.on('data', function (chunk) {
-//       appData += chunk
-//     })
-//     req.on('end',function(){
-//       var data = JSON.parse(appData)
-//       var novels = data.bookshelf
-//       console.info(novles)
-//     })
-//   })
-
-const axios = require('axios')
-let novels = [],
-  // feeding = [],
-  flag = false
-axios.get('http://api.zhuishushenqi.com/user/bookshelf?token=mFP43SIHeHWEAJecoMa5Y8aL')
-  .then(function (response) {
-    const appData = response.data
-    novels = appData.bookshelf
-    // feeding = appData.feedingBooks
-    flag = appData.ok
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+// 请求接口 解决跨域
+const web = require('../src/api/server')
+let user, bookshelf
+web.getApi('detail-info', 'mFP43SIHeHWEAJecoMa5Y8aL').then((res) => {
+  user = res
+})
+web.getApi('bookshelf', 'mFP43SIHeHWEAJecoMa5Y8aL').then((res) => {
+  bookshelf = res
+})
 
 const apiRoutes = express.Router()
-apiRoutes.get('/novels', function(req, res){
-  res.json({
-    errno: 0,
-    data: novels,
-    flag: flag
-  });
+apiRoutes.get('/bookshelf', function(req, res){
+  res.send(bookshelf)
+})
+apiRoutes.get('/user', function(req, res){
+  res.send(user)
 })
 app.use('/api', apiRoutes)
 
