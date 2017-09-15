@@ -10,12 +10,14 @@
       @pullingDown="_refresh"
       @scroll="scroll">
       <ul>
-        <li class="loading">
-          <i v-show="!refresh" v-if="scrollY > 0 && scrollY < 50" class="icon icon-arrow-down" />
-          <i v-show="!refresh" v-if="scrollY >= 50" class="icon icon-arrow-up" />
-          <i v-show="refresh" v-if="!isLoaded" class="icon icon-loading" />
-          <i v-show="refresh" v-if="isLoaded" class="icon icon-ok" />
-        </li>
+        <transition name="loading">
+          <div class="loading">
+            <i v-show="!refresh" v-if="scrollY > 0 && scrollY < 50" class="icon icon-arrow-down" />
+            <i v-show="!refresh" v-if="scrollY >= 50" class="icon icon-arrow-up" />
+            <i v-show="refresh" v-if="!isLoaded" class="icon icon-loading" />
+            <i v-show="refresh" v-if="isLoaded" class="icon icon-ok" />
+          </div>
+        </transition>
         <li v-for="(novel, index) in novels" :key="index" class="novel-item">
           <div class="img">
             <img width="45" height="55" v-lazy="proxyUrl+novel.cover" />
@@ -57,7 +59,6 @@ export default {
     _getNovels () {
       getInfo('novels')
       .then((res) => {
-        console.log(res.data)
         if (res.errno === ERR_OK) {
           this.novels = res.data || []
         }
@@ -127,6 +128,11 @@ export default {
           font-size 18px
           font-weight bold
           color #b93221
+      .loading-enter-active, .loading-leave-active
+        transition all .5s ease
+      .loading-enter, .loading-leave-to
+        // transform scaleY(30px)
+        opacity 0
       .novel-item
         display flex
         .img

@@ -1,13 +1,51 @@
 <template>
-  <div class="header">
-    <h1 class="title">
-      <!-- <i class="logo icon-zhuishushenqi" /><span>书 神 器</span> -->
-      <img class="logo" src="./asstes/logo.png">
-    </h1>
-    <div class="button-wrapper">
-      <i class="button icon-search" />
-      <i class="button icon-more" />
+  <div>
+    <div class="header">
+      <h1 class="title">
+        <!-- <i class="logo icon-zhuishushenqi" /><span>书 神 器</span> -->
+        <img class="logo" src="./asstes/logo.png" alt="追书神器">
+      </h1>
+      <div class="button-wrapper">
+        <i class="button icon-search" />
+        <i @click="showUser=!showUser" class="button icon-more" />
+      </div>
     </div>
+    <transition name="scale">
+      <ul class="user" v-if="showUser">
+        <li>
+          <img class="avatar" v-lazy="'http://statics.zhuishushenqi.com'+user.avatar" />
+          <span class="username">{{user.nickname}}</span>
+        </li>
+        <li>
+          <i class="icon" />
+          <span class="option">我的消息</span>
+        </li>
+        <li>
+          <i class="icon" />
+          <span class="option">同步书架</span>
+        </li>
+        <li>
+          <i class="icon" />
+          <span class="option">扫描本地书籍</span>
+        </li>
+        <li>
+          <i class="icon" />
+          <span class="option">WIFI传书</span>
+        </li>
+        <li>
+          <i class="icon" />
+          <span class="option">夜间模式</span>
+        </li>
+        <li>
+          <i class="icon" />
+          <span class="option">设置</span>
+        </li>
+        <li>
+          <i class="icon" />
+          <span class="option">我的消息</span>
+        </li>
+      </ul>
+    </transition>
   </div>
 </template>
 
@@ -15,7 +53,13 @@
 export default {
   name: 'header',
   data () {
-    return {}
+    return {
+      user: {
+        nickname: '成爺',
+        avatar: '/avatar/bc/f8/bcf8dadc1b3399c25dc753a8a76a53ce'
+      },
+      showUser: false
+    }
   }
 }
 </script>

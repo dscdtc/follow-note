@@ -44,13 +44,18 @@
           </div>
         </li>
         <div class="divider">我的社区</div>
-        <li v-for="(novel, index) in novels" :key="index" class="comm-item">
+        <li v-show="novels" v-for="(novel, index) in novels" :key="index" class="comm-item">
           <div class="icon">
             <img width="30" height="35" v-lazy="proxyUrl+novel.cover" />
           </div>
           <div class="info-wrapper">
             <h2 class="name">{{novel.title}}</h2>
             <span class="num">{{Math.floor(Math.random()*100)}}</span>
+          </div>
+        </li>
+        <li v-show="!novels" class="comm-item">
+          <div class="info-wrapper">
+            <h2 class="name" style="color:#b2b2b2; text-align:center;">毛都没有社毛社</h2>
           </div>
         </li>
       </ul>
@@ -60,14 +65,28 @@
 
 <script>
 import scroll from 'comp/scroll/scroll'
+import {getInfo} from 'api/get'
+
+const ERR_OK = 0
 
 export default {
-  props: {
-    novels: Array
-  },
   data () {
     return {
+      novels: [],
       proxyUrl: 'http://statics.zhuishushenqi.com'
+    }
+  },
+  created () {
+    this._getNovels()
+  },
+  methods: {
+    _getNovels () {
+      getInfo('novels')
+      .then((res) => {
+        if (res.errno === ERR_OK) {
+          this.novels = res.data || []
+        }
+      })
     }
   },
   components: {

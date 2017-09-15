@@ -118,16 +118,6 @@
           })
         }
 
-        // 是否派发顶部下拉事件，用于下拉刷新
-        if (this.pulldown) {
-          this.scroll.on('touchEnd', (pos) => {
-            // 下拉动作
-            if (pos.y > 50) {
-              this.$emit('pulldown')
-            }
-          })
-        }
-
         // 是否派发列表滚动开始的事件
         if (this.beforeScroll) {
           this.scroll.on('beforeScrollStart', () => {
@@ -135,6 +125,7 @@
           })
         }
 
+        // 是否派发顶部下拉事件，用于下拉刷新
         if (this.pullDownRefresh) {
           this.scroll.on('pullingDown', () => {
             this.$emit('pullingDown')
@@ -162,6 +153,7 @@
         this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments)
       },
       finishPullDown () {
+        // 代理better-scroll的finishPullDown方法
         this.scroll && this.scroll.finishPullDown()
       }
     },
