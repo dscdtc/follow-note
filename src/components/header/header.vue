@@ -85,6 +85,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" scoped>
+  @import '../../common/stylus/mixin'
   .header
     display flex
     // width 100%
@@ -119,17 +120,21 @@ export default {
     position fixed
     top 56px
     right 5px
-    width 200px
+    width 192px
+    padding 0 13px
     z-index 999
     background #fff
-    border-radius 2px
+    border-radius 3px
     .opt-wrapper
-      line-height 46px
+      border-1px(rgba(7,17,27,.1))
+      &:last-child
+        border-none()
       .icon
-        padding 13px
-        vertical-align top
+        vertical-align text-bottom
         border-radius 50%
       .option
+        padding-left 12px
+        line-height 52px
         font-size 16px
         color #212121
 </style>
