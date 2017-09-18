@@ -98,7 +98,7 @@ export default {
   @import '../../common/stylus/mixin'
   .community
     position absolute
-    top 96px
+    top 115px
     bottom 0
     width 100%
     font-size 0

@@ -112,21 +112,21 @@ export default {
   @import '../../common/stylus/mixin'
   .novel
     position absolute
-    top 112px
+    top 115px
     bottom 0
     width 100%
     font-size 0
     .novel-list
       height 100%
       overflow hidden
-      .loading-enter-active, .loading-leave-active
-        transition all 5s ease
-      .loading-enter, .loading-leave-to
-        transform scaleY(10px)
-        opacity 0
       .loading
         width 100%
         text-align center
+        &.loading-enter-active, &.loading-leave-active
+          transition all 5s ease
+        &.loading-enter, &.loading-leave-to
+          transform scaleY(10px)
+          opacity 0
         .icon
           font-size 18px
           font-weight bold

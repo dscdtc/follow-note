@@ -97,12 +97,13 @@ export default {
     color white
     .title
       .logo
-        display inline-block
+        display inline-flex
         height 22px
-        vertical-align middle
+        vertical-align bottom
     .button-wrapper
       .button
-        line-height 32px
+        display inline-flex
+        // line-height 32px
         padding 8px
         font-weight 600
         font-size 20px
@@ -124,6 +125,19 @@ export default {
     z-index 999
     background #fff
     border-radius 3px
+    transform translate3d(0, 0, 0)
+    transform-origin 100% 0 0 //设置缩放中心
+    &.scale-enter-active
+        animation: bounce-in .1s
+    &.scale-leave-active
+        animation: bounce-in .1s reverse
+    @keyframes bounce-in
+      0%
+        transform: scale(0)
+      50%
+        transform: scale(.5)
+      100%
+        transform: scale(1)
     .opt-wrapper
       border-1px(rgba(7,17,27,.1))
       &:last-child
