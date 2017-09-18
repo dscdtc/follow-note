@@ -112,7 +112,7 @@ export default {
   @import '../../common/stylus/mixin'
   .novel
     position absolute
-    top 96px
+    top 112px
     bottom 0
     width 100%
     font-size 0
@@ -134,11 +134,11 @@ export default {
       .novel-item
         display flex
         .img
-          padding 16px
+          padding 12px
           border-radius 5px
         .info
           flex-direction column
-          padding 16px 0
+          padding 12px 0
           height 55px
           width 100%
           border-1px(rgba(7,17,27,.1))

@@ -90,7 +90,7 @@ export default {
     display flex
     // width 100%
     justify-content space-between
-    padding 12px
+    padding 10px 14px
     line-height 32px
     background #b93221
     color white
@@ -102,11 +102,11 @@ export default {
         height 22px
         vertical-align middle
     .button-wrapper
-      line-height 32px
+      // line-height 32px
       font-weight 700
       .button
-        padding 8px
-        font-size 22px
+        padding 12px
+        font-size 20px
   .cover
     position fixed
     top 0
