@@ -93,19 +93,18 @@ export default {
     padding 10px 14px
     line-height 32px
     background #b93221
+    font-size 0
     color white
     .title
-      font-size 18px
-      font-weight 700
       .logo
         display inline-block
         height 22px
         vertical-align middle
     .button-wrapper
-      // line-height 32px
-      font-weight 700
       .button
-        padding 12px
+        line-height 32px
+        padding 8px
+        font-weight 600
         font-size 20px
   .cover
     position fixed
