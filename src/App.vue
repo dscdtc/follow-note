@@ -29,7 +29,7 @@
   &.tab
     display flex
     justify-content space-between
-    padding 0 32px
+    padding 8px 38px
     // width 100%
     height 40px
     background #b93221
@@ -41,7 +41,7 @@
       text-align center
     & > a
       display block
-      font-size 14px
+      font-size 15px
       color rgba(255, 255, 255, .4)
       &.active
         color rgb(255, 255, 255)
