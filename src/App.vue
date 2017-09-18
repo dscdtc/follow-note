@@ -28,8 +28,9 @@
     width 100%
   &.tab
     display flex
-    // padding 0 32px
-    width 100%
+    justify-content space-between
+    padding 0 32px
+    // width 100%
     height 40px
     background #b93221
     color white

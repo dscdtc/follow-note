@@ -82,7 +82,7 @@ export default {
       getInfo('bookshelf')
       .then((res) => {
         if (res.ok === true) {
-          this.bookshelf = res.data || []
+          this.bookshelf = res.bookshelf || []
         }
       })
     }
@@ -136,6 +136,4 @@ export default {
             background #c8c8c8
             color #fff
             border-radius 8px
-
-
 </style>

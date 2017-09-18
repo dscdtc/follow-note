@@ -6,6 +6,7 @@ Vue.use(Router)
 const novel = () => import('comp/novel/novel')
 const community = () => import('comp/community/community')
 const discover = () => import('comp/discover/discover')
+const search = () => import('comp/search/search')
 
 const routes = [
   {
@@ -23,6 +24,10 @@ const routes = [
   {
     path: '/discover',
     component: discover
+  },
+  {
+    path: '/search',
+    component: search
   }
 ]
 

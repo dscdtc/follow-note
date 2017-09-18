@@ -6,43 +6,44 @@
         <img class="logo" src="./asstes/logo.png" alt="追书神器">
       </h1>
       <div class="button-wrapper">
-        <i class="button icon-search" />
+        <i @click="toSearch"class="button icon-search" />
         <i @click="showUser=!showUser" class="button icon-more" />
       </div>
     </div>
+    <div @click="showUser=!showUser" v-if="showUser" class="cover"></div>
     <transition name="scale">
       <ul class="user" v-if="showUser">
-        <li>
-          <img class="avatar" v-lazy="proxyUrl+user.avatar" />
-          <span class="username">{{user.nickname}}</span>
+        <li class="opt-wrapper">
+          <img width="20" height="20" class="icon" v-lazy="proxyUrl+user.avatar" />
+          <span class="option">{{user.nickname}}</span>
         </li>
-        <li>
+        <li class="opt-wrapper">
           <i class="icon" />
           <span class="option">我的消息</span>
         </li>
-        <li>
+        <li class="opt-wrapper">
           <i class="icon" />
           <span class="option">同步书架</span>
         </li>
-        <li>
+        <li class="opt-wrapper">
           <i class="icon" />
           <span class="option">扫描本地书籍</span>
         </li>
-        <li>
+        <li class="opt-wrapper">
           <i class="icon" />
           <span class="option">WIFI传书</span>
         </li>
-        <li>
+        <li class="opt-wrapper">
+          <i class="icon" />
+          <span class="option">意见反馈</span>
+        </li>
+        <li class="opt-wrapper">
           <i class="icon" />
           <span class="option">夜间模式</span>
         </li>
-        <li>
+        <li class="opt-wrapper">
           <i class="icon" />
           <span class="option">设置</span>
-        </li>
-        <li>
-          <i class="icon" />
-          <span class="option">我的消息</span>
         </li>
       </ul>
     </transition>
@@ -62,7 +63,22 @@ export default {
     }
   },
   created () {
-    this._getUser
+    this._getUser()
+  },
+  methods: {
+    _getUser () {
+      getInfo('user')
+      .then((res) => {
+        if (res.ok === true) {
+          this.user = res
+        }
+      })
+    },
+    toSearch () {
+      this.$router.push({
+        path: '/search'
+      })
+    }
   }
 }
 </script>
@@ -90,4 +106,30 @@ export default {
       .button
         padding 8px
         font-size 22px
+  .cover
+    position fixed
+    top 0
+    height 100%
+    width 100%
+    z-index 99
+    // 背景虚化iOS
+    backdrop-filter blur(10px)
+    background rgba(7, 17, 27, .6)
+  .user
+    position fixed
+    top 56px
+    right 5px
+    width 200px
+    z-index 999
+    background #fff
+    border-radius 2px
+    .opt-wrapper
+      line-height 46px
+      .icon
+        padding 13px
+        vertical-align top
+        border-radius 50%
+      .option
+        font-size 16px
+        color #212121
 </style>
