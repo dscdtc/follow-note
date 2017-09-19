@@ -14,35 +14,35 @@
     <transition name="scale">
       <ul class="user" v-if="showUser">
         <li class="opt-wrapper">
-          <img width="20" height="20" class="icon" v-lazy="proxyUrl+user.avatar" />
+          <img width="20" height="20" class="avatar" v-lazy="proxyUrl+user.avatar" />
           <span class="option">{{user.nickname}}</span>
         </li>
         <li class="opt-wrapper">
-          <i class="icon" />
+          <i class="icon icon-lingdang" />
           <span class="option">我的消息</span>
         </li>
         <li class="opt-wrapper">
-          <i class="icon" />
+          <i class="icon icon-sync" />
           <span class="option">同步书架</span>
         </li>
         <li class="opt-wrapper">
-          <i class="icon" />
+          <i class="icon icon-photo" />
           <span class="option">扫描本地书籍</span>
         </li>
         <li class="opt-wrapper">
-          <i class="icon" />
+          <i class="icon icon-wifi" />
           <span class="option">WIFI传书</span>
         </li>
         <li class="opt-wrapper">
-          <i class="icon" />
+          <i class="icon icon-info" />
           <span class="option">意见反馈</span>
         </li>
         <li class="opt-wrapper">
-          <i class="icon" />
+          <i class="icon icon-night" />
           <span class="option">夜间模式</span>
         </li>
         <li class="opt-wrapper">
-          <i class="icon" />
+          <i class="icon icon-setting" />
           <span class="option">设置</span>
         </li>
       </ul>
@@ -75,6 +75,7 @@ export default {
       })
     },
     toSearch () {
+      console.log(12312313)
       this.$router.push({
         path: '/search'
       })
@@ -128,26 +129,28 @@ export default {
     transform translate3d(0, 0, 0)
     transform-origin 100% 0 0 //设置缩放中心
     &.scale-enter-active
-        animation: bounce-in .1s
+        animation: bounce-in .3s
     &.scale-leave-active
-        animation: bounce-in .1s reverse
+        animation: bounce-in .3s reverse
     @keyframes bounce-in
       0%
         transform: scale(0)
       50%
-        transform: scale(.5)
+        transform: scale(1.1)
       100%
         transform: scale(1)
     .opt-wrapper
+      font-size 16px
       border-1px(rgba(7,17,27,.1))
-      &:last-child
-        border-none()
-      .icon
+      .avatar
         vertical-align text-bottom
         border-radius 50%
+      .icon
+        color #8c857e
       .option
         padding-left 12px
         line-height 52px
-        font-size 16px
         color #212121
+      &:last-child
+        border-none()
 </style>

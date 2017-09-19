@@ -12,10 +12,10 @@
       <ul>
         <transition name="loading">
           <div class="loading">
-            <i v-show="!refresh" v-if="scrollY > 0 && scrollY < 50" class="icon icon-arrow-down" />
-            <i v-show="!refresh" v-if="scrollY >= 50" class="icon icon-arrow-up" />
-            <i v-show="refresh" v-if="!isLoaded" class="icon icon-loading" />
-            <i v-show="refresh" v-if="isLoaded" class="icon icon-ok" />
+            <i v-if="!refresh" v-show="scrollY > 0 && scrollY < 50" class="icon icon-arrow-down" />
+            <i v-if="!refresh" v-show="scrollY >= 50" class="icon icon-arrow-up" />
+            <i v-if="refresh" v-show="!isLoaded" class="icon icon-loading" />
+            <i v-if="refresh" v-show="isLoaded" class="icon icon-ok" />
           </div>
         </transition>
         <li v-for="(novel, index) in bookshelf" :key="index" class="novel-item">
@@ -46,7 +46,7 @@ export default {
       isLoaded: true,
       pullDownRefresh: {
         threshold: 50,
-        stop: 30
+        stop: 80
       }
     }
   },
@@ -112,7 +112,7 @@ export default {
   @import '../../common/stylus/mixin'
   .novel
     position absolute
-    top 115px
+    top 117px
     bottom 0
     width 100%
     font-size 0
@@ -128,6 +128,7 @@ export default {
           transform scaleY(10px)
           opacity 0
         .icon
+          padding 16px
           font-size 18px
           font-weight bold
           color #b93221

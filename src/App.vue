@@ -6,7 +6,9 @@
         <router-link to="/community" class="tab-item">社区</router-link>
         <router-link to="/discover" class="tab-item">发现</router-link>
     </div>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
