@@ -11,14 +11,13 @@
       @scroll="scroll">
       <ul>
         <transition name="loading">
-          <div class="loading">
-            <i v-if="!refresh" v-show="scrollY > 0 && scrollY < 50" class="icon icon-arrow-down" />
-            <i v-if="!refresh" v-show="scrollY >= 50" class="icon icon-arrow-up" />
+          <div :style="direction" class="loading">
+            <i v-if="!refresh" v-show="scrollY > 0" class="icon icon-arrow-down" />
             <i v-if="refresh" v-show="!isLoaded" class="icon icon-loading" />
             <i v-if="refresh" v-show="isLoaded" class="icon icon-ok" />
           </div>
         </transition>
-        <li v-for="(novel, index) in bookshelf" :key="index" class="novel-item">
+        <li v-for="(novel, index) in bookshelf" class="novel-item">
           <div class="img">
             <img width="45" height="55" v-lazy="proxyUrl+novel.cover" />
           </div>
@@ -101,6 +100,13 @@ export default {
       this.$refs.scroll.finishPullDown()
     }
   },
+  computed: {
+    direction () {
+      if (this.scrollY > 40) {
+        return {transform: 'rotateZ(540deg)'}
+      }
+    }
+  },
   components: {
     scroll
   }
@@ -120,13 +126,14 @@ export default {
       height 100%
       overflow hidden
       .loading
-        width 100%
-        text-align center
         &.loading-enter-active, &.loading-leave-active
-          transition all 5s ease
+          transition all .5s ease
         &.loading-enter, &.loading-leave-to
           transform scaleY(10px)
           opacity 0
+        width 100%
+        text-align center
+        transition transform 1s
         .icon
           padding 16px
           font-size 18px
@@ -136,7 +143,8 @@ export default {
         display flex
         .img
           padding 12px
-          border-radius 5px
+          img
+            border-radius 2px // ???????
         .info
           flex-direction column
           padding 12px 0

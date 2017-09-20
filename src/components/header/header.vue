@@ -10,7 +10,9 @@
         <i @click="showUser=!showUser" class="button icon-more" />
       </div>
     </div>
-    <div @click="showUser=!showUser" v-if="showUser" class="cover"></div>
+    <transition name="fade">
+      <div @click="showUser=!showUser" v-if="showUser" class="cover"></div>
+    </transition>
     <transition name="scale">
       <ul class="user" v-if="showUser">
         <li class="opt-wrapper">
@@ -117,6 +119,11 @@ export default {
     // 背景虚化iOS
     backdrop-filter blur(10px)
     background rgba(7, 17, 27, .6)
+    opacity 1
+    &.fade-enter-active, &.fade-leave-active
+      transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0)
+    &.fade-enter, &.fade-leave-to
+      opacity 0
   .user
     position fixed
     top 56px

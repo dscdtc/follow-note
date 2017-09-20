@@ -32,6 +32,7 @@
           <p class="msg">未搜索到结果</p>
           <button @click="clear" class="btn">全网精确找书</button>
         </div>
+        <!-- <iframe src="http://m.zhuishushenqi.com/search?val=%E6%88%91%E7%9C%9F%E6%98%AF"></iframe> -->
       </transition>
     </div>
   </transition>
@@ -85,11 +86,11 @@ export default {
     bottom 0
     width 100%
     background #fff
-    opacity 1
     &.slide-enter-active, &.slide-leave-active
       transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0)
     &.slide-enter, &.slide-leave-to
       transform: translateY(61px)
+      opacity 0
     .header
       display flex
       justify-content space-between
