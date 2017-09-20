@@ -75,7 +75,7 @@ export default {
       })
     },
     toSearch () {
-      console.log(12312313)
+      // console.log(this.$router) // Amazing！！！
       this.$router.push({
         path: '/search'
       })

@@ -6,9 +6,11 @@
         <router-link to="/community" class="tab-item">社区</router-link>
         <router-link to="/discover" class="tab-item">发现</router-link>
     </div>
-    <keep-alive>
-      <router-view></router-view>
-    </keep-alive>
+    <transition name="slide">
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
+    </transition>
   </div>
 </template>
 
@@ -47,4 +49,10 @@
       color rgba(255, 255, 255, .4)
       &.active
         color rgb(255, 255, 255)
+  &.slide-enter-active, &.slide-leave-active
+    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0)
+  &.slide-enter
+    transform: translateX(100%)
+  &.slide-leave-to
+    transform: translateX(-100%)
 </style>
