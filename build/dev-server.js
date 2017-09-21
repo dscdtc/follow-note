@@ -30,21 +30,24 @@ var app = express()
 
 // 请求接口 解决跨域
 const web = require('../src/api/server')
-let user, bookshelf
-web.getApi('detail-info', 'mFP43SIHeHWEAJecoMa5Y8aL').then((res) => {
-  user = res
-})
-web.getApi('bookshelf', 'mFP43SIHeHWEAJecoMa5Y8aL').then((res) => {
-  bookshelf = res
-})
-
 const apiRoutes = express.Router()
+
 apiRoutes.get('/bookshelf', function(req, res){
-  res.send(bookshelf)
+  web.getApi('bookshelf', 'mFP43SIHeHWEAJecoMa5Y8aL').then((response) => {
+    res.send(response)
+  })
 })
 apiRoutes.get('/user', function(req, res){
-  res.send(user)
+  web.getApi('detail-info', 'mFP43SIHeHWEAJecoMa5Y8aL').then((response) => {
+    res.send(response)
+  })
 })
+apiRoutes.get('/auto-complete', function(req, res){
+  web.getQuery(req.query.query).then((response) => {
+    res.send(response)
+  })
+})
+
 app.use('/api', apiRoutes)
 
 var compiler = webpack(webpackConfig)

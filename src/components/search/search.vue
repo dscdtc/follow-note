@@ -27,19 +27,29 @@
         </ul>
       </div>
       <transition name="fade">
-        <div v-if="searchName" class="result">
-          <img width="108" src="./assets/ku.png"/>
-          <p class="msg">未搜索到结果</p>
-          <button @click="clear" class="btn">全网精确找书</button>
+        <div v-if="searchName" class="result-wrapper">
+          <ul v-show="keywords[0] !== null" class="result">
+            <li v-for="keyword in keywords" class="result-item">
+              <i class="icon-search" />
+              <span class="keyword">{{keyword}}</span>
+            </li>
+          </ul>
+          <div v-show="keywords[0] === null" class="no-result">
+            <img width="108" src="./assets/ku.png"/>
+            <p class="msg">未搜索到结果</p>
+            <button @click="clear" class="btn">全网精确找书</button>
+          </div>
         </div>
-        <!-- <iframe src="http://m.zhuishushenqi.com/search?val=%E6%88%91%E7%9C%9F%E6%98%AF"></iframe> -->
       </transition>
+      <!-- <iframe src="http://m.zhuishushenqi.com/search?val=%E6%88%91%E7%9C%9F%E6%98%AF"></iframe> -->
     </div>
   </transition>
 </template>
 
 <script>
 import {shuffle} from 'common/js/util.js'
+import {getInfo} from 'api/get'
+
 export default {
   name: 'search',
   data () {
@@ -47,7 +57,18 @@ export default {
       promotions: ['爱多尼斯', '气汤纪检物理课', '成爷我爱你', '阴阳先生', '雪人', '绝世邪神', '我怎么这么可爱', '何所冬暖，何所夏凉', '斗天武神', '逼婚36计，腹黑神医'],
       histories: ['呵呵呵呵呵呵呵', '哈哈哈哈哈哈', '嘻嘻嘻嘻嘻嘻嘻嘻嘻', '嘿嘿嘿嘿嘿嘿嘿'],
       colorful: ['firebrick', 'hotpink', 'darkmagenta', 'saddlebrown', 'orangered', 'darkgoldenrod', 'darkslategray', 'olive', 'darkcyan', 'darkslateblue'],
-      searchName: ''
+      searchName: '',
+      keywords: []
+    }
+  },
+  watch: {
+    searchName: function () {
+      if (this.searchName) {
+        this._getKeys()
+        setTimeout(null, 500)
+      } else {
+        this.keywords = []
+      }
     }
   },
   methods: {
@@ -63,9 +84,24 @@ export default {
     },
     clear () {
       this.searchName = ''
+      this.keywords = []
     },
     autoinput (name) {
       this.searchName = name
+    },
+    _getKeys () {
+      let url = 'auto-complete?query=' + this.searchName
+      getInfo(url)
+      .then((res) => {
+        console.info('searching...')
+        if (res.ok) {
+          if (res.keywords.length) {
+            this.keywords = res.keywords
+          } else {
+            this.keywords = [null]
+          }
+        }
+      })
     }
   },
   computed: {
@@ -80,6 +116,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" scoped>
+  @import '../../common/stylus/mixin'
   .search
     position absolute
     top 0
@@ -166,11 +203,7 @@ export default {
         .icon-timer
           padding 16px
 
-    .result
-      display flex
-      flex-direction column
-      justify-content center
-      align-items center
+    .result-wrapper
       position absolute
       top 62px
       bottom 0
@@ -182,20 +215,33 @@ export default {
       &.fade-enter, &.fade-leave-to
         transform scaleY(60px)
         opacity 0
-      .msg
-        padding 30px
-        font-size 14px
-        color grey
-      .btn
-        padding 12px
-        /* button宽度自适应 */
-        width auto
-        overflow visible
-        font-size 16px
-        color #fff
-        background #b93221
-        border-radius 2px
-
-      
-
+      .result
+        .result-item
+          line-height 45px
+          font-size 16px
+          border-1px(rgba(7,17,27,.1))
+          .icon-search
+            margin-right 10px
+            padding 15px 24px
+            font-weight bold
+            color rgba(0, 0, 0, .3)
+      .no-result
+        height 100%
+        display flex
+        flex-direction column
+        justify-content center
+        align-items center
+        .msg
+          padding 30px
+          font-size 14px
+          color grey
+        .btn
+          padding 12px
+          /* button宽度自适应 */
+          width auto
+          overflow visible
+          font-size 16px
+          color #fff
+          background #b93221
+          border-radius 2px
 </style>

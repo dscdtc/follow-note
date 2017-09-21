@@ -50,7 +50,7 @@
       &.active
         color rgb(255, 255, 255)
   &.slide-enter-active, &.slide-leave-active
-    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0)
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0)
   &.slide-enter
     transform: translateX(100%)
   &.slide-leave-to
