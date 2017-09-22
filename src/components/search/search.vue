@@ -5,7 +5,7 @@
         <i @click="back" class="icon icon-back" />
         <input v-model="searchName" class="input" placeholder="输入书名或作者名" autofocus required />
         <i @click="clear" class="icon-clear" />
-        <i class="icon icon-search" />
+        <i @click="record(searchName)" class="icon icon-search" />
       </div>
       <div class="divider">
         <span>大家都在搜</span>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import {shuffle} from 'common/js/util.js'
+import {shuffle, unique} from 'common/js/util.js'
 import {getInfo} from 'api/get'
 
 export default {
@@ -55,7 +55,7 @@ export default {
   data () {
     return {
       promotions: ['爱多尼斯', '气汤纪检物理课', '成爷我爱你', '阴阳先生', '雪人', '绝世邪神', '我怎么这么可爱', '何所冬暖，何所夏凉', '斗天武神', '逼婚36计，腹黑神医'],
-      histories: ['呵呵呵呵呵呵呵', '哈哈哈哈哈哈', '嘻嘻嘻嘻嘻嘻嘻嘻嘻', '嘿嘿嘿嘿嘿嘿嘿'],
+      histories: [],
       colorful: ['firebrick', 'hotpink', 'darkmagenta', 'saddlebrown', 'orangered', 'darkgoldenrod', 'darkslategray', 'olive', 'darkcyan', 'darkslateblue'],
       searchName: '',
       keywords: []
@@ -88,12 +88,13 @@ export default {
     },
     autoinput (name) {
       this.searchName = name
+      this.record(name)
     },
     _getKeys () {
       let url = 'auto-complete?query=' + this.searchName
       getInfo(url)
       .then((res) => {
-        console.info('searching...')
+        // console.info('searching...')
         if (res.ok) {
           if (res.keywords.length) {
             this.keywords = res.keywords
@@ -102,6 +103,13 @@ export default {
           }
         }
       })
+    },
+    record (item) {
+      this.histories.unshift(item)
+      this.histories = unique(this.histories)
+      if (this.histories.length > 6) {
+        this.histories.pop()
+      }
     }
   },
   computed: {

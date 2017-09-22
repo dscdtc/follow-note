@@ -157,6 +157,10 @@ export default {
             font-weight 250
             color #212121
           .update
+            width 30px
             font-size 12px
             color #727272
+            overflow hidden
+            white-space nowrap
+            text-overflow ellipsis
 </style>
