@@ -1,5 +1,5 @@
 <template>
-  <div class="novel">
+  <div class="novel" v-if="bookshelf.length > 0">
     <scroll
       class="novel-list"
       ref="scroll"
@@ -8,7 +8,8 @@
       :listenScroll="true"
       :pullDownRefresh="pullDownRefresh"
       @pullingDown="_refresh"
-      @scroll="scroll">
+      @scroll="scroll"
+    >
       <ul>
         <transition name="loading">
           <div :style="direction" class="loading">
@@ -34,6 +35,7 @@
 <script>
 import scroll from 'comp/scroll/scroll'
 import {getInfo} from 'api/get'
+import {quickSort} from 'common/js/util.js'
 
 export default {
   data () {
@@ -58,6 +60,7 @@ export default {
       .then((res) => {
         if (res.ok === true) {
           this.bookshelf = res.bookshelf || []
+          this.bookshelf = quickSort(this.bookshelf)
         }
       })
     },
@@ -67,17 +70,19 @@ export default {
       // let oldDate = new Date(timeStr)
       let oldDate = new Date(utc)
       let nowDate = new Date()
-      let days = parseInt(Math.floor((nowDate - oldDate) / (1000 * 3600 * 24)))
+      let days = ((nowDate - oldDate) / (1000 * 3600 * 24)) >>> 0
       if (days) {
         return `${days}天前`
       }
-      let hours = parseInt(Math.floor((nowDate - oldDate) / (1000 * 3600)))
+      let hours = ((nowDate - oldDate) / (1000 * 3600)) >>> 0
       if (hours) {
         return `${hours}小时前`
       }
-      let minutes = parseInt(Math.floor((nowDate - oldDate) / (1000 * 60)))
+      let minutes = ((nowDate - oldDate) / (1000 * 60)) >>> 0
       if (minutes) {
         return `${minutes}分钟前`
+      } else {
+        return '刚刚'
       }
     },
     scroll (pos) {
@@ -122,6 +127,7 @@ export default {
     bottom 0
     width 100%
     font-size 0
+    background #e5e5e5
     .novel-list
       height 100%
       overflow hidden
@@ -144,7 +150,7 @@ export default {
         .img
           padding 12px
           img
-            border-radius 2px // ???????
+            border-radius 3px // ???????
         .info
           flex-direction column
           padding 12px 0
@@ -160,7 +166,7 @@ export default {
             width 30px
             font-size 12px
             color #727272
-            overflow hidden
+            overflow-x hidden
             white-space nowrap
             text-overflow ellipsis
 </style>

@@ -6,6 +6,7 @@
         <router-link to="/community" class="tab-item">社区</router-link>
         <router-link to="/discover" class="tab-item">发现</router-link>
     </div>
+    <div class="background"></div>
     <transition name="slide">
       <keep-alive>
         <router-view></router-view>
@@ -34,7 +35,6 @@
     display flex
     justify-content space-between
     padding 8px 38px
-    // width 100%
     height 40px
     background #b93221
     color white
@@ -50,9 +50,18 @@
       &.active
         color rgb(255, 255, 255)
   &.slide-enter-active, &.slide-leave-active
-    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0)
+    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0)
   &.slide-enter
     transform: translateX(100%)
   &.slide-leave-to
     transform: translateX(-100%)
+    // opacity 0
+  .background
+    position fixed
+    top 117px
+    z-index -1
+    height 100%
+    width 100%
+    background url('./common/image/default.png')
+    background-size 100%
 </style>

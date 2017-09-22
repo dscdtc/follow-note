@@ -51,8 +51,8 @@ export default {
 <style lang="stylus" scoped>
   @import '../../common/stylus/mixin'
   .discover
-    width 100%
-    font-size 0
+    height 100%
+    background #e5e5e5
     .disc-item
       display flex
       height 60px

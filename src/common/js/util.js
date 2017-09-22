@@ -65,13 +65,14 @@ export function quickSort (arr) {
   }
   let leftArr = []
   let rightArr = []
-  let q = arr[0]
+  let q = new Date(arr[0].updated)
   for (let i = 1; i < arr.length; i++) {
-    if (arr[i] > q) {
+    let p = new Date(arr[i].updated)
+    if (p < q) { // >从大到小；<从小到大
       rightArr.push(arr[i])
     } else {
       leftArr.push(arr[i])
     }
   }
-  return [].concat(quickSort(leftArr), [q], quickSort(rightArr)) // 递归调用
+  return [].concat(quickSort(leftArr), [arr[0]], quickSort(rightArr)) // 递归调用
 }

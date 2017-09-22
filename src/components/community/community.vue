@@ -1,6 +1,9 @@
 <template>
   <div class="community">
-    <scroll class="comm-list">
+    <scroll
+      class="comm-list"
+      :data="bookshelf"
+    >
       <ul>
         <li class="comm-item">
           <div class="icon">
@@ -55,7 +58,7 @@
         </li>
         <li v-show="!bookshelf" class="comm-item">
           <div class="info-wrapper">
-            <h2 class="name" style="color:#b2b2b2; text-align:center;">毛都没有社毛社</h2>
+            <h2 class="name" style="color:#b2b2b2; text-align:center">毛都没有社毛社</h2>
           </div>
         </li>
       </ul>
@@ -102,9 +105,10 @@ export default {
     bottom 0
     width 100%
     font-size 0
+    background #e5e5e5
     .comm-list
       height 100%
-      min-height 101%
+      // min-height 101%
       width 100%
       overflow hidden
       .divider

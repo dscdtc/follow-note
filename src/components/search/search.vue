@@ -29,7 +29,7 @@
       <transition name="fade">
         <div v-if="searchName" class="result-wrapper">
           <ul v-show="keywords[0] !== null" class="result">
-            <li v-for="keyword in keywords" class="result-item">
+            <li v-for="keyword in keywords" @click="autoinput(keyword)" class="result-item">
               <i class="icon-search" />
               <span class="keyword">{{keyword}}</span>
             </li>
