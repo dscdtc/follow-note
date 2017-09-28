@@ -16,11 +16,11 @@
       </div>
       <div class="divider">
         <span>搜索历史</span>
-        <i @click="empty" class="icon icon-empty" :style="isDisable"> 清空</i>
+        <i @click="cleanHistoary" class="icon icon-empty" :style="isDisable"> 清空</i>
       </div>
       <div class="history">
         <ul>
-          <li v-for="(item, index) in histories" :key="index" @click="autoinput(item)" class="his-item">
+          <li v-for="(item, index) in searchHistory" :key="index" @click="autoinput(item)" class="his-item">
             <i class="icon-timer" />
             <span>{{item}}</span>
           </li>
@@ -47,8 +47,9 @@
 </template>
 
 <script>
-import {shuffle, unique} from 'common/js/util.js'
+import {shuffle} from 'common/js/util.js'
 import {getInfo} from 'api/get'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
   name: 'search',
@@ -79,9 +80,6 @@ export default {
       this.promotions = shuffle(this.promotions)
       this.colorful = shuffle(this.colorful)
     },
-    empty () {
-      this.histories = []
-    },
     clear () {
       this.searchName = ''
       this.keywords = []
@@ -105,19 +103,22 @@ export default {
       })
     },
     record (item) {
-      this.histories.unshift(item)
-      this.histories = unique(this.histories)
-      if (this.histories.length > 6) {
-        this.histories.pop()
-      }
-    }
+      this.saveSearchHistoary(item)
+    },
+    ...mapActions([
+      'saveSearchHistoary',
+      'cleanHistoary'
+    ])
   },
   computed: {
     isDisable () {
-      if (this.histories.length === 0) { // 判断空数组不能用：arr === []; if(arr); 可以用arr==false; arr.length === 0
+      if (this.searchHistory.length === 0) { // 判断空数组不能用：arr === []; if(arr); 可以用arr==false; arr.length === 0
         return {color: 'grey'}
       }
-    }
+    },
+    ...mapGetters([
+      'searchHistory'
+    ])
   }
 }
 </script>

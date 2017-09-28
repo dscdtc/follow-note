@@ -1,0 +1,20 @@
+数据存储
+我们每次点击一个标题栏，都要把它的显示状态记录。例如，放在一个数组中，然后存储之，代码如下（假设我们已经记录了各标题栏状态为数组arrDisplay）：
+
+var arrDisplay = [0, 1, 1, 1];
+
+//存储，IE6~7 cookie 其他浏览器HTML5本地存储
+if (window.localStorage) {
+    localStorage.setItem("menuTitle", arrDisplay);	
+} else {
+    Cookie.write("menuTitle", arrDisplay);	
+}
+数据读取
+当我们每次load页面的时候，就要将相对应的数据读出来。如下：
+
+var strStoreDate = window.localStorage? localStorage.getItem("menuTitle"): Cookie.read("menuTitle");	
+需要注意的是：虽然我们存储的是数组，但是，实际上存储的的是数组字符化后的字符串(Cookie和localStorage都是)，因此，我们在处理strStoreDate的时候，一定要当作字符串处理，类似下面：
+
+strStoreDate.split(",").each(function(display, index) {
+    //根据存储的display触发相对应的动作
+});

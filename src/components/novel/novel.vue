@@ -152,7 +152,6 @@ export default {
           img
             border-radius 3px // ???????
         .info
-          flex-direction column
           padding 12px 0
           height 55px
           width 100%
@@ -163,7 +162,8 @@ export default {
             font-weight 250
             color #212121
           .update
-            width 30px
+            display block
+            width 258px
             font-size 12px
             color #727272
             overflow-x hidden

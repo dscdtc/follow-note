@@ -59,7 +59,7 @@
   .background
     position fixed
     top 117px
-    z-index -1
+    z-index -99
     height 100%
     width 100%
     background url('./common/image/default.png')
