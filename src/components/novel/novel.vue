@@ -166,7 +166,7 @@ export default {
             width 258px
             font-size 12px
             color #727272
-            overflow-x hidden
+            overflow hidden
             white-space nowrap
             text-overflow ellipsis
 </style>

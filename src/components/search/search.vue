@@ -56,7 +56,6 @@ export default {
   data () {
     return {
       promotions: ['爱多尼斯', '气汤纪检物理课', '成爷我爱你', '阴阳先生', '雪人', '绝世邪神', '我怎么这么可爱', '何所冬暖，何所夏凉', '斗天武神', '逼婚36计，腹黑神医'],
-      histories: [],
       colorful: ['firebrick', 'hotpink', 'darkmagenta', 'saddlebrown', 'orangered', 'darkgoldenrod', 'darkslategray', 'olive', 'darkcyan', 'darkslateblue'],
       searchName: '',
       keywords: []

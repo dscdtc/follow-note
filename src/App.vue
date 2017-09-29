@@ -55,7 +55,6 @@
     transform: translateX(100%)
   &.slide-leave-to
     transform: translateX(-100%)
-    // opacity 0
   .background
     position fixed
     top 117px
