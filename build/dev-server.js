@@ -47,6 +47,21 @@ apiRoutes.get('/auto-complete', function(req, res){
     res.send(response)
   })
 })
+apiRoutes.get('/source-list', function(req, res){
+  web.getSource(req.query.book).then((response) => {
+    res.send(response)
+  })
+})
+apiRoutes.get('/chapters', function(req, res){
+  web.getChapters(req.query.id).then((response) => {
+    res.send(response)
+  })
+})
+apiRoutes.get('/content', function(req, res){
+  web.getContent(req.query.uri).then((response) => {
+    res.send(response)
+  })
+})
 
 app.use('/api', apiRoutes)
 

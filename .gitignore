@@ -13,4 +13,4 @@ yarn-error.log*
 *.sln
 
 # Personality
-server.js
+# server.js

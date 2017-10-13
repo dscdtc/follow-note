@@ -7,6 +7,8 @@ const novel = () => import('comp/novel/novel')
 const community = () => import('comp/community/community')
 const discover = () => import('comp/discover/discover')
 const search = () => import('comp/search/search')
+const reader = () => import('comp/reader/reader')
+const srclist = () => import('comp/srclist/srclist')
 
 const routes = [
   {
@@ -28,6 +30,14 @@ const routes = [
   {
     path: '/search',
     component: search
+  },
+  {
+    path: '/reader',
+    component: reader
+  },
+  {
+    path: '/srclist',
+    component: srclist
   }
 ]
 

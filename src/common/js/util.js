@@ -76,3 +76,25 @@ export function quickSort (arr) {
   }
   return [].concat(quickSort(leftArr), [arr[0]], quickSort(rightArr)) // 递归调用
 }
+
+export function computeTime (utc) {
+  // UTC时间字符串："2017-06-18T07:33:57.921Z"
+  // let timeStr = updated.split('.')[0].replace(/-/g, '/').replace('T', ' ')
+  // let oldDate = new Date(timeStr)
+  let oldDate = new Date(utc)
+  let nowDate = new Date()
+  let days = ((nowDate - oldDate) / (1000 * 3600 * 24)) >>> 0
+  if (days) {
+    return `${days}天前`
+  }
+  let hours = ((nowDate - oldDate) / (1000 * 3600)) >>> 0
+  if (hours) {
+    return `${hours}小时前`
+  }
+  let minutes = ((nowDate - oldDate) / (1000 * 60)) >>> 0
+  if (minutes) {
+    return `${minutes}分钟前`
+  } else {
+    return '刚刚'
+  }
+}

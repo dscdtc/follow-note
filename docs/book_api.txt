@@ -1,0 +1,11 @@
+get_source:
+api.zhuishushenqi.com/toc?view=summary&book=537461911079ec10040006ee&channel=mweb
+{_id}
+
+get_chapters:
+api.zhuishushenqi.com/toc/56f5a66219910f9f5c7b234f?view=chapters&channel=mweb
+{link}
+
+get_content:
+http://chapter2.zhuishushenqi.com/chapter/http:%2F%2Fwww.hunhun520.com%2Fbook%2Fxiangshengdashi%2F22888731.html
+

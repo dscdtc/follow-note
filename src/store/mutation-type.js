@@ -1,1 +1,3 @@
 export const SET_SEARCH_HISTORY = 'SET_SEARCH_HISTORY'
+export const SET_READ_RECORD = 'SET_READ_RECORD'
+export const SET_BOOK_ID = 'SET_BOOK_ID'

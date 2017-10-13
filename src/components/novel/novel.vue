@@ -18,7 +18,7 @@
             <i v-if="refresh" v-show="isLoaded" class="icon icon-ok" />
           </div>
         </transition>
-        <li v-for="(novel, index) in bookshelf" class="novel-item">
+        <li v-for="novel in bookshelf" class="novel-item" @click="toContent(novel._id)">
           <div class="img">
             <img width="45" height="55" v-lazy="proxyUrl+novel.cover" />
           </div>
@@ -103,6 +103,12 @@ export default {
         this.refresh = false
       }, 2500)
       this.$refs.scroll.finishPullDown()
+    },
+    toContent (id) {
+      this.$store.dispatch('saveBookId', id)
+      this.$router.push({
+        path: '/reader'
+      })
     }
   },
   computed: {

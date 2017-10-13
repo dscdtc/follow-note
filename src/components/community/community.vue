@@ -71,6 +71,7 @@ import scroll from 'comp/scroll/scroll'
 import {getInfo} from 'api/get'
 
 export default {
+  name: 'community',
   data () {
     return {
       bookshelf: [],

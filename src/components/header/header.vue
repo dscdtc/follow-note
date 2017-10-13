@@ -6,7 +6,7 @@
         <img class="logo" src="./asstes/logo.png" alt="追书神器">
       </h1>
       <div class="button-wrapper">
-        <i @click="toSearch"class="button icon-search" />
+        <router-link class="button icon-search" to="/search" tag="i"></router-link>
         <i @click="showUser=!showUser" class="button icon-more" />
       </div>
     </div>
@@ -53,37 +53,31 @@
 </template>
 
 <script>
-import {getInfo} from 'api/get'
+  import {getInfo} from 'api/get'
 
-export default {
-  name: 'header',
-  data () {
-    return {
-      user: {},
-      showUser: false,
-      proxyUrl: 'http://statics.zhuishushenqi.com'
-    }
-  },
-  created () {
-    this._getUser()
-  },
-  methods: {
-    _getUser () {
-      getInfo('user')
-      .then((res) => {
-        if (res.ok === true) {
-          this.user = res
-        }
-      })
+  export default {
+    name: 'header',
+    data () {
+      return {
+        user: {},
+        showUser: false,
+        proxyUrl: 'http://statics.zhuishushenqi.com'
+      }
     },
-    toSearch () {
-      // console.log(this.$router) // Amazing！！！
-      this.$router.push({
-        path: '/search'
-      })
+    created () {
+      this._getUser()
+    },
+    methods: {
+      _getUser () {
+        getInfo('user')
+        .then((res) => {
+          if (res.ok === true) {
+            this.user = res
+          }
+        })
+      }
     }
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
